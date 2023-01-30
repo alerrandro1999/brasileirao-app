@@ -1,21 +1,13 @@
 
 import 'package:pontos_brasileirao/models/time.dart';
+import 'package:pontos_brasileirao/repositories/time_repository.dart';
 
 class HomeController {
- late List<Time> tabela;
+ late TimesRepository timesRepository;
 
-  HomeController() {
-    tabela = [
-      Time(
-        nome: 'Flamengo', 
-        ponto: 71, 
-        brasao: 'https://e.imguol.com/futebol/brasoes/40x40/flamengo.png'
-      ),
-      Time(
-        nome: 'Santos', 
-        ponto: 61, 
-        brasao: 'https://e.imguol.com/futebol/brasoes/40x40/santos.png'
-      ),
-    ];
-  }
+ List<Time> get tabela => timesRepository.times;
+
+ HomeController() {
+  timesRepository = TimesRepository();
+ }
 }
