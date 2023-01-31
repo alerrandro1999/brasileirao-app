@@ -1,55 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pontos_brasileirao/models/time.dart';
 import 'package:pontos_brasileirao/models/titulo.dart';
 import 'package:pontos_brasileirao/repositories/time_repository.dart';
 import 'package:provider/provider.dart';
 
-
-class AddTituloPage extends StatefulWidget {
-  final Time time;
-
-  const AddTituloPage({required this.time});
+class EditTituloPage extends StatefulWidget {
+  Titulo titulo;
+  EditTituloPage ({required this.titulo});
 
   @override
-  State<AddTituloPage> createState() => _AddTituloPageState();
+  _EditTituloPageState createState() => _EditTituloPageState();
 }
 
-class _AddTituloPageState extends State<AddTituloPage> {
+class _EditTituloPageState extends State<EditTituloPage> {
   final _ano = TextEditingController();
   final _campeonato = TextEditingController();
-
   final _formkey = GlobalKey<FormState>();
-  
-  save(){
-    Provider.of<TimesRepository>(context, listen: false).addTitulo(
-      time: widget.time,
-      titulo: Titulo(_ano.text,  _campeonato.text,
-        ),
+
+  @override
+  void initState(){
+    super.initState();
+    _ano.text = widget.titulo.ano;
+    _campeonato.text = widget.titulo.campeonato;
+  }
+
+  editar() {
+    Provider.of<TimesRepository>(context, listen: false).editTitulo(
+      titulo: widget.titulo,
+      campeonato: _campeonato.text,
+      ano: _ano.text,
     );
 
     Get.back();
-
-    Get.snackbar('Sucesso!', 'Título cadastrado!', 
-    backgroundColor: Colors.grey[900],
-    colorText: Colors.white,
-    snackPosition: SnackPosition.BOTTOM
-    );
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Adicionar Titulo'),
+        title: const Text('Editar Título'),
+        backgroundColor: Colors.grey[800],
+        actions: [IconButton(onPressed: editar, icon: const Icon(Icons.check))],
       ),
       body: Form(
         key: _formkey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Padding(
+             Padding(
               padding: const EdgeInsets.all(24),
               child: TextFormField(
                 controller: _ano,
@@ -83,31 +81,6 @@ class _AddTituloPageState extends State<AddTituloPage> {
                 },
               ),
             ),
-            Expanded(
-                child: Container(
-              alignment: Alignment.bottomCenter,
-              margin: const EdgeInsets.all(24.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_formkey.currentState!.validate()) {
-                    save();
-                  }
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.check),
-                    Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Text(
-                        'Salvar',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ))
           ],
         ),
       ),
