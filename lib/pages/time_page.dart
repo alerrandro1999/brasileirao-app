@@ -30,7 +30,7 @@ class _TimePageState extends State<TimePage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: widget.time.cor,
-          title: Text(widget.time.nome),
+          title: Text(widget.time.nome.toString()),
           actions:[
             IconButton(
               icon: const Icon(Icons.add), 
@@ -60,7 +60,7 @@ class _TimePageState extends State<TimePage> {
                 Padding(
                   padding: const EdgeInsets.all(24),
                   child:  Brasao(
-                  image: widget.time.brasao, 
+                  image: widget.time.brasao.toString(), 
                   width: 250,
                   ),
                 ),
@@ -78,7 +78,7 @@ class _TimePageState extends State<TimePage> {
   Widget titulos() {
     final time = Provider.of<TimesRepository>(context).times.firstWhere((t) => t.nome == widget.time.nome);
 
-    final quantidade = time.titulos.length;
+    final quantidade = time.titulos!.length;
 
     return quantidade == 0  
             ? Container(
@@ -90,11 +90,11 @@ class _TimePageState extends State<TimePage> {
               itemBuilder: (BuildContext context, int index) {
                   return  ListTile(
                     leading:  const Icon(Icons.emoji_events),
-                    title: Text(time.titulos[index].campeonato),
-                    trailing: Text(time.titulos[index].ano),
+                    title: Text(time.titulos![index].campeonato.toString()),
+                    trailing: Text(time.titulos![index].ano.toString()),
                     onTap: () {
                      Get.to(
-                       EditTituloPage(titulo: time.titulos[index]),
+                       EditTituloPage(titulo: time.titulos![index]),
                        fullscreenDialog: true
                      );
                     },
