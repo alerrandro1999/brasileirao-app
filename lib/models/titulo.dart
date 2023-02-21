@@ -1,6 +1,7 @@
 class Titulo {
-  String ano;
-  String campeonato;
+  int? id;
+  String? ano;
+  String? campeonato;
 
-  Titulo(this.ano, this.campeonato);
+  Titulo({ this.id,  this.ano,  this.campeonato});
 }

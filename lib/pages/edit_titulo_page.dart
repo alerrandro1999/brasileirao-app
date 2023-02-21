@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 class EditTituloPage extends StatefulWidget {
   Titulo titulo;
-  EditTituloPage ({required this.titulo});
+  EditTituloPage ({super.key, required this.titulo});
 
   @override
   _EditTituloPageState createState() => _EditTituloPageState();
@@ -20,8 +20,8 @@ class _EditTituloPageState extends State<EditTituloPage> {
   @override
   void initState(){
     super.initState();
-    _ano.text = widget.titulo.ano;
-    _campeonato.text = widget.titulo.campeonato;
+    _ano.text = widget.titulo.ano.toString();
+    _campeonato.text = widget.titulo.campeonato.toString();
   }
 
   editar() {

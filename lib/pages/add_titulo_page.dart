@@ -5,11 +5,10 @@ import 'package:pontos_brasileirao/models/titulo.dart';
 import 'package:pontos_brasileirao/repositories/time_repository.dart';
 import 'package:provider/provider.dart';
 
-
 class AddTituloPage extends StatefulWidget {
   final Time time;
 
-  const AddTituloPage({required this.time});
+  const AddTituloPage({super.key, required this.time});
 
   @override
   State<AddTituloPage> createState() => _AddTituloPageState();
@@ -20,23 +19,23 @@ class _AddTituloPageState extends State<AddTituloPage> {
   final _campeonato = TextEditingController();
 
   final _formkey = GlobalKey<FormState>();
-  
-  save(){
+
+  save() {
     Provider.of<TimesRepository>(context, listen: false).addTitulo(
       time: widget.time,
-      titulo: Titulo(_ano.text,  _campeonato.text,
-        ),
+      titulo: Titulo(
+       ano: _ano.text,
+       campeonato: _campeonato.text,
+      ),
     );
 
     Get.back();
 
-    Get.snackbar('Sucesso!', 'Título cadastrado!', 
-    backgroundColor: Colors.grey[900],
-    colorText: Colors.white,
-    snackPosition: SnackPosition.BOTTOM
-    );
+    Get.snackbar('Sucesso!', 'Título cadastrado!',
+        backgroundColor: Colors.grey[900],
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM);
   }
-
 
   @override
   Widget build(BuildContext context) {
